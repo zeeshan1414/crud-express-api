@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TODO List</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.css" />
+  </head>
+
+  <body>
+    <div class="container  w-50">
+      <h1 class="mb-4 text-center">TODO List</h1>
+
+      <div class="list-group mb-4">
+        <% for (let item of items ) { %>
+        <li class="list-group-item">
+          <%= item["list"] %>
+
+          <form action="/todo/delete" method="post">
+            <input type="hidden" value="<%= item._id %>" name="task_id" />
+            <input
+              type="submit"
+              value="delete"
+              class="btn btn-danger float-right"
+            />
+          </form>
+        </li>
+
+        <% } %>
+      </div>
+
+      <form action="/todo/addNewTask" method="post">
+        <div class="form-group">
+          <label for="NewTask">Add a new task</label>
+          <input
+            type="text"
+            class="form-control"
+            name="NewTask"
+            placeholder="Enter Here!"
+          />
+        </div>
+        <div>
+          <button type="submit" class="btn btn-primary mb-2">
+            Add to list
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="/javascripts/jquery-3.4.1.js"></script>
+    <script src="/javascripts/scripts.js"></script>
+  </body>
+</html>
