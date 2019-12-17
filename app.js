@@ -3,8 +3,11 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const mongoose = require('mongoose');
 // import database file
-const mongoose = require('./database');
+const {
+  database
+} = require('./config');
 
 // Index Router
 var indexRouter = require('./routes/index');
@@ -15,7 +18,11 @@ const todoRouter = require('./routes/todo');
 var app = express();
 
 // connect to the database
-const db = mongoose.connection;
+const db = mongoose.connect(database, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }).then(console.log('database connected'))
+  .catch(err => console.log(err));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
